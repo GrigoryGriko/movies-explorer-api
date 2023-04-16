@@ -22,10 +22,35 @@ module.exports.getAllMovies = async (req, res, next) => {
 };
 
 module.exports.createMovie = async (req, res, next) => {
-  const { name, link } = req.body;
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+  } = req.body;
 
   try {
-    const movie = await Movie.create({ name, link, owner: req.user._id });
+    const movie = await Movie.create({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      thumbnail,
+      owner: req.user._id,
+      movieId,
+      nameRU,
+      nameEN,
+    });
     if (movie) {
       res.status(CODE_CREATED).send(movie);
     } else {

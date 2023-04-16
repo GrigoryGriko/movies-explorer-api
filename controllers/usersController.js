@@ -84,8 +84,6 @@ module.exports.createUser = async (req, res, next) => {
     email,
     password,
     name,
-    about,
-    avatar,
   } = req.body;
 
   try {
@@ -95,16 +93,12 @@ module.exports.createUser = async (req, res, next) => {
         email,
         password: hash,
         name,
-        about,
-        avatar,
       });
 
       if (user) {
         user = {
           email,
           name,
-          about,
-          avatar,
         };
         res.status(CODE_CREATED).send(user);
       } else {
