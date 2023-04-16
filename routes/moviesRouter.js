@@ -9,3 +9,5 @@ const {
 router.post('/', createMovie);
 router.get('/', getAllMovies);
 router.delete('/:movieId', deleteMovieById);
+
+module.exports = router;
