@@ -12,7 +12,6 @@ const {
 
 router.use(cookieParser());
 
-router.use(cookieParser());
 router.post('/signin', login);
 router.post('/signup', createUser);
 
