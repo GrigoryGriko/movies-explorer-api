@@ -52,6 +52,8 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   movieId : {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
     /*---------------------*/
   },
   nameRU: {
@@ -64,4 +66,4 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('card', userCard);
+module.exports = mongoose.model('movie', movieSchema);
