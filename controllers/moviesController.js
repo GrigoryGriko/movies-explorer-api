@@ -14,7 +14,7 @@ module.exports.getAllMovies = async (req, res, next) => {
     if (movie) {
       res.send(movie);
     } else {
-      throw new NotFoundError('Карточки не найдены');
+      throw new NotFoundError('Фильмы не найдены');
     }
   } catch (err) {
     next(err);
@@ -29,7 +29,7 @@ module.exports.createMovie = async (req, res, next) => {
     if (movie) {
       res.status(CODE_CREATED).send(movie);
     } else {
-      throw new NotFoundError('Карточки не найдены');
+      throw new NotFoundError('Фильмы не найдены');
     }
   } catch (err) {
     if (err.name === 'ValidationError') return next(new CastError('Ошибка валидации'));
@@ -42,7 +42,7 @@ module.exports.deleteMovieById = async (req, res, next) => {
     const movie = await Movie.findById(req.params.movieId);
     if (movie) {
       if (req.user._id.toString() !== movie.owner.toString()) {
-        throw new FordibbenError('Запрещено удалять чужую карточку');
+        throw new FordibbenError('Запрещено удалять чужой фильм');
       } else {
         return Movie.findByIdAndRemove(req.params.movieId)
           .then(
