@@ -4,7 +4,10 @@ const cookieParser = require('cookie-parser');
 const usersRouter = require('./usersRouter');
 const moviesRouter = require('./moviesRouter');
 const auth = require('../middlewares/auth');
-
+const {
+  validateUserLogin,
+  validateUserRegister,
+} = require('../middlewares/validation');
 const {
   login,
   createUser,
@@ -12,8 +15,8 @@ const {
 
 router.use(cookieParser());
 
-router.post('/signin', login);
-router.post('/signup', createUser);
+router.post('/signin', validateUserLogin, login);
+router.post('/signup', validateUserRegister, createUser);
 
 router.use(auth);
 router.use('/users', usersRouter);
