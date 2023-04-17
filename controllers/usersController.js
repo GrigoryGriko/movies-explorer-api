@@ -67,10 +67,15 @@ module.exports.login = async (req, res, next) => {
         const token = jwt.sign(
           { _id: user._id },
           NODE_ENV === 'production' ? JWT_SECRET : 'pro-letter-crypto',
-          { expiresIn: 3600 },
         );
 
-        res.status(CODE_OK).send({ token });
+        res
+          .cookie('jwt', token, {
+            maxAge: 360000,
+            httpOnly: true,
+            sameSite: true,
+          })
+          .send(user.toJSON());
       }
     }
   } catch (err) {
