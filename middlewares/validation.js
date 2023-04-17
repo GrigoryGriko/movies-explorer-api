@@ -146,7 +146,7 @@ const validateMovieBody = celebrate({
 
 const validateMovieId = celebrate({
   params: {
-    MovieId: Joi.objectId().required()
+    movieId: Joi.objectId().required()
       .messages({
         'any.required': 'Id фильма не указан',
       }),
