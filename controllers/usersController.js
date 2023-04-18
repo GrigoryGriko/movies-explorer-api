@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const { NODE_ENV, JWT_SECRET } = process.env;
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -16,13 +15,12 @@ module.exports.getUserData = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
     if (user) {
-      res.status(CODE_OK).send(user);
-    } else {
-      throw new NotFoundError(`Пользователь с id '${req.user._id}' не найден`);
+      return res.status(CODE_OK).send(user);
     }
+    throw new NotFoundError(`Пользователь с id '${req.user._id}' не найден`);
   } catch (err) {
     if (err.name === 'CastError') return next(new CastError('Невалидный ID'));
-    next(err);
+    return next(err);
   }
 };
 
@@ -42,14 +40,13 @@ module.exports.updateProfile = async (req, res, next) => {
       },
     );
     if (user) {
-      res.status(CODE_OK).send(user);
-    } else {
-      throw new NotFoundError(`Пользователь с id '${req.params.userId}' не найден`);
+      return res.status(CODE_OK).send(user);
     }
+    throw new NotFoundError(`Пользователь с id '${req.params.userId}' не найден`);
   } catch (err) {
     if (err.code === 11000) return next(new ConflictingRequestError('Данный email уже существует'));
     if (err.name === 'ValidationError' || err.name === 'CastError') return next(new CastError('Переданы некорректные данные при обновлении профиля'));
-    next(err);
+    return next(err);
   }
 };
 
@@ -70,7 +67,7 @@ module.exports.login = async (req, res, next) => {
           NODE_ENV === 'production' ? JWT_SECRET : 'pro-letter-crypto',
         );
 
-        res
+        return res
           .cookie('jwt', token, {
             maxAge: 360000,
             httpOnly: true,
@@ -81,7 +78,7 @@ module.exports.login = async (req, res, next) => {
     }
   } catch (err) {
     if (err.name === 'ValidationError') return next(new CastError('Переданы некорректные данные'));
-    next(err);
+    return next(err);
   }
 };
 
@@ -106,14 +103,13 @@ module.exports.createUser = async (req, res, next) => {
           email,
           name,
         };
-        res.status(CODE_CREATED).send(user);
-      } else {
-        throw new NotFoundError('Пользователь не найден');
+        return res.status(CODE_CREATED).send(user);
       }
+      throw new NotFoundError('Пользователь не найден');
     }
   } catch (err) {
     if (err.code === 11000) return next(new ConflictingRequestError('Данный email уже существует'));
     if (err.name === 'ValidationError') return next(new CastError('Переданы некорректные данные'));
-    next(err);
+    return next(err);
   }
 };

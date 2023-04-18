@@ -7,9 +7,9 @@ const {
   CODE_CREATED,
 } = require('../constants/constants');
 
-module.exports.getAllMovies = async (req, res, next) => {
+module.exports.getUserMovies = async (req, res, next) => {
   try {
-    const movie = await Movie.find({});
+    const movie = await Movie.find({ owner: req.user._id });
     if (movie) {
       res.send(movie);
     } else {

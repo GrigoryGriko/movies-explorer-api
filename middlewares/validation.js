@@ -33,16 +33,15 @@ const validateUserRegister = celebrate({
       .messages({
         'any.required': 'Поле email должно быть заполнено',
       }),
-    password: Joi.string().required().min(2).max(30)
+    password: Joi.string().required()
       .messages({
-        'string.min': 'Минимальная длинна пароля 2 символа',
-        'string.max': 'Максимальная длинна пароля 30 символов',
         'any.required': 'Пароль должен быть заполнен',
       }),
     name: Joi.string().min(2).max(30)
       .messages({
         'string.min': 'Минимальная длинна поля name - 2',
         'string.max': 'Максимальная длинна поля name - 30',
+        'any.required': 'Поле name должно быть заполнено',
       }),
   },
 });
@@ -58,10 +57,8 @@ const validateUserLogin = celebrate({
       .messages({
         'any.required': 'Поле email должно быть заполнено',
       }),
-    password: Joi.string().required().min(2).max(30)
+    password: Joi.string().required()
       .messages({
-        'string.min': 'Минимальная длинна пароля 2 символа',
-        'string.max': 'Максимальная длинна пароля 30 символов',
         'any.required': 'Пароль должен быть заполнен',
       }),
   },
