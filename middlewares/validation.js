@@ -4,17 +4,20 @@ Joi.objectId = require('joi-objectid')(Joi);
 
 const validateProfile = celebrate({
   body: {
+    email: Joi.string().required().custom((value, helpers) => {
+      if (validator.isEmail(value)) {
+        return value;
+      }
+      return helpers.message('Невалидный email');
+    })
+      .messages({
+        'any.required': 'Поле email должно быть заполнено',
+      }),
     name: Joi.string().required().min(2).max(30)
       .messages({
         'string.min': 'Минимальная длинна поля name - 2',
         'string.max': 'Максимальная длинна поля name - 30',
         'any.required': 'Поле name должно быть заполнено',
-      }),
-    about: Joi.string().required().min(2).max(30)
-      .messages({
-        'string.min': 'Минимальная длинна поля about - 2',
-        'string.max': 'Максимальная длинна поля about - 30',
-        'any.required': 'Поле about должно быть заполнено',
       }),
   },
 });
@@ -123,7 +126,7 @@ const validateMovieBody = celebrate({
       .messages({
         'any.required': 'Поле thumbnail должно быть заполнено',
       }),
-    movieId: Joi.number().required().min(2).max(30)
+    movieId: Joi.number().required()
       .messages({
         'string.min': 'Минимальная длинна поля movieId - 2',
         'string.max': 'Максимальная длинна поля movieId - 30',

@@ -27,13 +27,13 @@ module.exports.getUserData = async (req, res, next) => {
 };
 
 module.exports.updateProfile = async (req, res, next) => {
-  const { name, about } = req.body;
+  const { email, name } = req.body;
   try {
     const user = await User.findByIdAndUpdate(
       req.user._id,
       {
+        email,
         name,
-        about,
       },
 
       {
@@ -47,6 +47,7 @@ module.exports.updateProfile = async (req, res, next) => {
       throw new NotFoundError(`Пользователь с id '${req.params.userId}' не найден`);
     }
   } catch (err) {
+    if (err.code === 11000) return next(new ConflictingRequestError('Данный email уже существует'));
     if (err.name === 'ValidationError' || err.name === 'CastError') return next(new CastError('Переданы некорректные данные при обновлении профиля'));
     next(err);
   }
