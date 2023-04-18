@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const Movie = require('../models/movie');
 const NotFoundError = require('../errors/NotFoundError');
 const CastError = require('../errors/CastError');
@@ -52,13 +51,12 @@ module.exports.createMovie = async (req, res, next) => {
       nameEN,
     });
     if (movie) {
-      res.status(CODE_CREATED).send(movie);
-    } else {
-      throw new NotFoundError('Фильмы не найдены');
+      return res.status(CODE_CREATED).send(movie);
     }
+    throw new NotFoundError('Фильмы не найдены');
   } catch (err) {
     if (err.name === 'ValidationError') return next(new CastError('Ошибка валидации'));
-    next(err);
+    return next(err);
   }
 };
 
@@ -79,6 +77,6 @@ module.exports.deleteMovieById = async (req, res, next) => {
     }
   } catch (err) {
     if (err.name === 'CastError') return next(new CastError('Невалидный ID'));
-    next(err);
+    return next(err);
   }
 };

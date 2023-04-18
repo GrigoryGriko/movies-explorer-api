@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const { CODE_SERVERERROR } = require('../constants/constants');
 
 const errorHandler = (err, req, res, next) => {
