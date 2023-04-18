@@ -111,4 +111,5 @@ module.exports.createUser = async (req, res, next) => {
     if (err.name === 'ValidationError') return next(new CastError(err));
     return next(err);
   }
+  return null;
 };
