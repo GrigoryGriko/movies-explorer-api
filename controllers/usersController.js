@@ -104,7 +104,6 @@ module.exports.createUser = async (req, res, next) => {
         };
         return res.status(CODE_CREATED).send(user);
       }
-      throw new NotFoundError('Пользователь не найден');
     }
   } catch (err) {
     if (err.code === 11000) return next(new ConflictingRequestError('Данный email уже существует'));

@@ -53,11 +53,11 @@ module.exports.createMovie = async (req, res, next) => {
     if (movie) {
       return res.status(CODE_CREATED).send(movie);
     }
-    throw new NotFoundError('Фильмы не найдены');
   } catch (err) {
     if (err.name === 'ValidationError') return next(new CastError('Ошибка валидации'));
     return next(err);
   }
+  return null;
 };
 
 module.exports.deleteMovieById = async (req, res, next) => {
