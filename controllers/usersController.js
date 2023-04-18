@@ -109,7 +109,7 @@ module.exports.createUser = async (req, res, next) => {
     }
   } catch (err) {
     if (err.code === 11000) return next(new ConflictingRequestError('Данный email уже существует'));
-    if (err.name === 'ValidationError') return next(new CastError('Переданы некорректные данные'));
+    if (err.name === 'ValidationError') return next(new CastError(err));
     return next(err);
   }
 };

@@ -12,7 +12,7 @@ const {
 } = require('../controllers/moviesController');
 
 router.post('/', validateMovieBody, createMovie);
-router.get('/', validateMovieBody, getUserMovies);
+router.get('/', getUserMovies);
 router.delete('/:movieId', validateMovieId, deleteMovieById);
 
 module.exports = router;

@@ -5,7 +5,6 @@ const cors = require('cors');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
-const NotFoundError = require('./errors/NotFoundError');
 const errorHandler = require('./middlewares/errorHandler');
 
 const { PORT = 3000, CONNECT_DB = 'mongodb://localhost:27017/bitfilmsdb' } = process.env;
@@ -21,10 +20,6 @@ mongoose.connect(CONNECT_DB);
 app.use(requestLogger);
 
 app.use(routes);
-
-app.use((req, res, next) => {
-  next(new NotFoundError('Данный ресурс не найден'));
-});
 
 app.use(errorLogger);
 

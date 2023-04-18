@@ -66,34 +66,24 @@ const validateUserLogin = celebrate({
 
 const validateMovieBody = celebrate({
   body: {
-    country: Joi.string().required().min(2).max(30)
+    country: Joi.string().required()
       .messages({
-        'string.min': 'Минимальная длинна поля country - 2',
-        'string.max': 'Максимальная длинна поля country - 30',
         'any.required': 'Поле country должно быть заполнено',
       }),
-    director: Joi.string().required().min(2).max(30)
+    director: Joi.string().required()
       .messages({
-        'string.min': 'Минимальная длинна поля director - 2',
-        'string.max': 'Максимальная длинна поля director - 30',
         'any.required': 'Поле director должно быть заполнено',
       }),
-    duration: Joi.number().required().min(2).max(900)
+    duration: Joi.number().required()
       .messages({
-        'string.min': 'Минимальная длинна поля duration - 2',
-        'string.max': 'Максимальная длинна поля duration - 30',
         'any.required': 'Поле duration должно быть заполнено',
       }),
-    year: Joi.string().required().min(2).max(30)
+    year: Joi.string().required()
       .messages({
-        'string.min': 'Минимальная длинна поля year - 2',
-        'string.max': 'Максимальная длинна поля year - 30',
         'any.required': 'Поле year должно быть заполнено',
       }),
-    description: Joi.string().required().min(2).max(30)
+    description: Joi.string().required()
       .messages({
-        'string.min': 'Минимальная длинна поля description - 2',
-        'string.max': 'Максимальная длинна поля description - 30',
         'any.required': 'Поле description должно быть заполнено',
       }),
     image: Joi.string().required().custom((value, helpers) => {
@@ -125,20 +115,14 @@ const validateMovieBody = celebrate({
       }),
     movieId: Joi.number().required()
       .messages({
-        'string.min': 'Минимальная длинна поля movieId - 2',
-        'string.max': 'Максимальная длинна поля movieId - 30',
         'any.required': 'Поле movieId должно быть заполнено',
       }),
-    nameRU: Joi.string().required().min(2).max(30)
+    nameRU: Joi.string().required()
       .messages({
-        'string.min': 'Минимальная длинна поля nameRU - 2',
-        'string.max': 'Максимальная длинна поля nameRU - 30',
         'any.required': 'Поле nameRU должно быть заполнено',
       }),
     nameEN: Joi.string().required().min(2).max(30)
       .messages({
-        'string.min': 'Минимальная длинна поля nameEN - 2',
-        'string.max': 'Максимальная длинна поля nameEN - 30',
         'any.required': 'Поле nameEN должно быть заполнено',
       }),
   },
