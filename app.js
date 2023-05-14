@@ -18,7 +18,15 @@ app.use(helmet());
 
 app.use(limiter);
 
-app.use(cors());
+/*app.use(cors({
+  origin: '*',
+  methods: 'GET,PUT,POST,DELETE',
+  allowedHeaders: 'Content-Type,Authorization',
+}));*/
+
+app.use(cors({
+  origin: '*',
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
